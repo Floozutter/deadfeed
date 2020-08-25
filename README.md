@@ -9,5 +9,5 @@ $ cl /EHsc -I"C:\opencv\build\include" src\main.cpp "C:\opencv\build\x64\vc15\li
 
 To run with DroidCam:
 ```
-$ build/main "http://0.0.0.0:4747/"
+$ build\main "http://0.0.0.0:4747/"
 ```
