@@ -6,7 +6,7 @@
 
 using namespace cv;
 
-constexpr unsigned int SCALE = 16;
+constexpr unsigned int SCALE = 8;
 
 int main(int argc, char** argv) {
 	if (argc < 2) { 
