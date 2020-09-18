@@ -16,7 +16,11 @@ int main(int argc, char** argv) {
 	}
 	const unsigned int scale = argc < 3 ? DEFAULT_SCALE : std::stoi(argv[2]);
 	VideoCapture cap;
-	cap.open(argv[1]);
+	if (std::string(argv[1]) == "0") {
+		cap.open(0);
+	} else {
+		cap.open(argv[1]);
+	}
 	if (!cap.isOpened()) {
 		std::cout << "Error! Could not open capture." << std::endl;
 		return 1;
