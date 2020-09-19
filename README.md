@@ -7,7 +7,7 @@ To build:
 $ cl /EHsc -I"C:\opencv\build\include" src\main.cpp "C:\opencv\build\x64\vc15\lib\opencv_world440.lib" /Fo"src\\" /link /out:build\main.exe
 ```
 
-To run with the default webcam:
+To run with the default camera:
 ```
 $ build\main 0
 ```
