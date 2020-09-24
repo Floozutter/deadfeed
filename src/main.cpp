@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
 		}
 		resize(frameIn, frameOut, Size(), 1.0/scale, 1.0/scale, INTER_AREA);
 		resize(frameOut, frameOut, Size(), scale, scale, INTER_NEAREST);
-		imshow("Live", frameOut);
+		imshow("camfx", frameOut);
 		if (waitKey(5) >= 0) {
 			break;
 		}
