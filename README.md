@@ -16,3 +16,5 @@ To run with DroidCam:
 ```
 $ build\main "http://0.0.0.0:4747/mjpegfeed"
 ```
+
+To save the current frame on Windows, press Ctrl+C (clipboard) or Ctrl+S (file).
