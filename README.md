@@ -2,7 +2,7 @@
 Add silly effects to a camera feed!
 
 ## Usage
-To build:
+To build with x64 Native Tools Command Prompt for VS 2019:
 ```
 $ cl /EHsc -I"C:\opencv\build\include" src\main.cpp "C:\opencv\build\x64\vc15\lib\opencv_world440.lib" /Fo"src\\" /link /out:build\main.exe
 ```
