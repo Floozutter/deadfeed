@@ -7,7 +7,7 @@
 
 using namespace cv;
 
-const unsigned int DEFAULT_SCALE = 8;
+const unsigned int DEFAULT_SCALE = 4;
 
 int main(int argc, char** argv) {
 	if (argc < 2) { 
