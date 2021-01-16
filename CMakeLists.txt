@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.19)
 project(camfx)
-find_package(OpenCV REQUIRED PATHS C:\\OpenCV\\build\\x64\\vc15\\lib)
+find_package(OpenCV REQUIRED PATHS C:/OpenCV/build/x64/vc15/lib/)
 include_directories(${OpenCV_INCLUDE_DIRS})
 add_executable(camfx src/main.cpp)
 target_link_libraries(camfx ${OpenCV_LIBS})
