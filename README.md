@@ -1,20 +1,21 @@
 # camfx
-Add silly effects to a camera feed!
+add silly effects to a camera feed!
 
-## Usage
-To build with x64 Native Tools Command Prompt for VS 2019:
+## build
 ```
-cl /EHsc -I"C:\opencv\build\include" src\main.cpp "C:\opencv\build\x64\vc15\lib\opencv_world440.lib" /Fo"src\\" /link /out:build\main.exe
-```
-
-To run with the default camera:
-```
-build\main 0
+mkdir build
+cd build
+cmake ..
+cmake --build . --config Release
 ```
 
-To run with DroidCam:
+## usage
+to run with the default camera:
 ```
-build\main "http://0.0.0.0:4747/mjpegfeed"
+camfx 0
 ```
-
-To save the current frame on Windows, press Ctrl+C (clipboard) or Ctrl+S (file).
+to run with droidcam:
+```
+camfx "http://0.0.0.0:4747/mjpegfeed"
+```
+to save the current frame on Windows, press Ctrl+C (clipboard) or Ctrl+S (file)
