@@ -20,7 +20,7 @@ int main(int argc, char * argv[]) {
         cap.open(argv[1]);
     }
     if (!cap.isOpened()) {
-        std::cout << "error: can't open capture." << std::endl;
+        std::cout << "error: can't open capture!" << std::endl;
         return 1;
     }
     cv::Mat frameIn;
@@ -28,7 +28,7 @@ int main(int argc, char * argv[]) {
     while (true) {
         cap.read(frameIn);
         if (frameIn.empty()) {
-            std::cout << "error: empty frame" << std::endl;
+            std::cout << "error: empty frame!" << std::endl;
             break;
         }
         cv::resize(frameIn, frameOut, cv::Size(), 1.0/scale, 1.0/scale, cv::INTER_AREA);
