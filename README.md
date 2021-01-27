@@ -1,5 +1,5 @@
-# camfx
-add silly effects to a camera feed!
+# deadfeed
+kill your camera feed!
 
 ## build
 ```
