@@ -33,7 +33,7 @@ int main(int argc, char * argv[]) {
         }
         cv::resize(frameIn, frameOut, cv::Size(), 1.0/scale, 1.0/scale, cv::INTER_AREA);
         cv::resize(frameOut, frameOut, cv::Size(), scale, scale, cv::INTER_NEAREST);
-        cv::imshow("camfx", frameOut);
+        cv::imshow("deadfeed", frameOut);
         if (cv::waitKey(5) >= 0) {
             break;
         }
