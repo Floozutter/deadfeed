@@ -15,5 +15,7 @@ deadfeed example.cfg
 ```
 
 to quit, press `esc`
+
 to reload config, press `r`
+
 to save the current frame on Windows, press `Ctrl+C` (clipboard) or `Ctrl+S` (file)
