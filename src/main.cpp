@@ -12,6 +12,7 @@
 struct Config {
     std::variant<int, std::string> feed{0};
     unsigned int downsample_scale{1};
+    bool negate{false};
     unsigned int range_per_channel{256};
     static Config from_map(std::map<std::string, std::string> const & map, std::ostream & log) {
         log << "initializing config from map..." << std::endl;
@@ -29,6 +30,12 @@ struct Config {
                 cfg.range_per_channel = std::stoi(it->second);
             }
 
+        }
+        {
+            auto const & it = map.find("negate");
+            if (it != map.end()) {
+                cfg.negate = static_cast<bool>(std::stoi(it->second));
+            }
         }
         return cfg;
     }
@@ -64,6 +71,14 @@ void downsample(cv::Mat & mat, unsigned int scale) {
     if (scale <= 1) { return; }
     cv::resize(mat, mat, cv::Size(), 1.0/scale, 1.0/scale, cv::INTER_AREA);
     cv::resize(mat, mat, cv::Size(), scale, scale, cv::INTER_NEAREST);
+}
+
+void negate(cv::Mat & mat) {
+    for (auto it = mat.begin<cv::Vec3b>(); it != mat.end<cv::Vec3b>(); ++it) {
+        for (char c = 0; c < 3; ++c) {
+            (*it)[c] = 255 - (*it)[c];
+        }
+    }
 }
 
 void quantize(cv::Mat & mat, unsigned int range_per_channel) {
@@ -108,6 +123,7 @@ int main(int argc, char * argv[]) {
         }
         // transform frame
         downsample(frame, cfg.downsample_scale);
+        if (cfg.negate) { negate(frame); }
         quantize(frame, cfg.range_per_channel);
         // show frame
         cv::imshow("deadfeed", frame);
