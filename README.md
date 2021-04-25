@@ -10,15 +10,10 @@ cmake --build . --config Release
 ```
 
 ## usage
-to run with the default camera:
 ```
-deadfeed 0
-```
-to run with droidcam:
-```
-deadfeed "http://0.0.0.0:4747/mjpegfeed"
+deadfeed example.cfg
 ```
 
-to quit, press `Esc`
-
+to quit, press `esc`
+to reload config, press `r`
 to save the current frame on Windows, press `Ctrl+C` (clipboard) or `Ctrl+S` (file)
