@@ -6,6 +6,8 @@
 #include <iostream>
 #include <variant>
 
+void trans_by_config(cv::Mat & mat, Config const & cfg);
+
 int main(int argc, char * argv[]) {
     // get config
     if (argc < 2) {
@@ -35,9 +37,7 @@ int main(int argc, char * argv[]) {
             break;
         }
         // transform frame
-        downsample(frame, cfg.downsample_scale);
-        negate(frame, cfg.negate);
-        quantize(frame, cfg.range_per_channel);
+        trans_by_config(frame, cfg);
         // show frame
         cv::imshow("deadfeed", frame);
         // handle key events
@@ -51,4 +51,10 @@ int main(int argc, char * argv[]) {
         }
     }
     return 0;
+}
+
+void trans_by_config(cv::Mat & mat, Config const & cfg) {
+    downsample(mat, cfg.downsample_scale);
+    negate(mat, cfg.negate);
+    quantize(mat, cfg.range_per_channel);
 }
