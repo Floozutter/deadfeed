@@ -1,11 +1,15 @@
 # deadfeed
 kill your camera feed!
 
-## build
+## generate
 ```
 mkdir build
 cd build
-cmake ..
+cmake .. -D CMAKE_PREFIX_PATH="path/to/opencv"
+```
+
+## build
+```
 cmake --build . --config Release
 ```
 
