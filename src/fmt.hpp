@@ -1,5 +1,5 @@
-#ifndef LOG_HPP
-#define LOG_HPP
+#ifndef FMT_HPP
+#define FMT_HPP
 
 #include <string>
 
