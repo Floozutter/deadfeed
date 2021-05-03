@@ -10,7 +10,11 @@
 void trans_by_config(cv::Mat & mat, Config const & cfg);
 
 int main(int argc, char * argv[]) {
-    fmt::init_ansi();
+    if (fmt::init_ansi()) {
+        std::cout << fmt::success("enabled ANSI") << std::endl;
+    } else {
+        std::cout << fmt::warning("failed to enable ANSI") << std::endl;
+    }
     // get config
     if (argc < 2) {
         std::cout << fmt::error("no config filename argument") << std::endl;
