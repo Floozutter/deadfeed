@@ -1,10 +1,17 @@
 #include "fmt.hpp"
 #include <string>
 
-std::string const DEFAULT{"\033[39;49m"};
-std::string const RED{"\033[31m"};
-std::string const GREEN{"\033[32m"};
-std::string const YELLOW{"\033[33m"};
+namespace {
+    bool ansi{false};
+    std::string reset() { return ansi ? "\033[39;49m" : std::string{}; }
+    std::string red() { return ansi ? "\033[31m" : std::string{}; }
+    std::string green() { return ansi ? "\033[32m" : std::string{}; }
+    std::string yellow() { return ansi ? "\033[33m" : std::string{}; }
+}
+
+void fmt::init_ansi() {
+    ansi = true;
+}
 
 std::string fmt::header(std::string const & text) {   
     return text + "...";
@@ -23,9 +30,9 @@ std::string fmt::result(std::string const & text) {
 }
 
 std::string fmt::warning(std::string const & text) {
-    return YELLOW + "warning: " + text + "!" + DEFAULT;
+    return yellow() + "warning: " + text + "!" + reset();
 }
 
 std::string fmt::error(std::string const & text) {
-    return RED + "error: " + text + "!" + DEFAULT;
+    return red() + "error: " + text + "!" + reset();
 }
