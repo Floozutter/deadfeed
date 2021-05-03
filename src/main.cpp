@@ -1,5 +1,6 @@
 #include "config.hpp"
 #include "trans.hpp"
+#include "fmt.hpp"
 #include <opencv2/videoio.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
@@ -11,7 +12,7 @@ void trans_by_config(cv::Mat & mat, Config const & cfg);
 int main(int argc, char * argv[]) {
     // get config
     if (argc < 2) {
-        std::cerr << "error: no config filename argument!" << std::endl;
+        std::cout << fmt::error("no config filename argument") << std::endl;
         return 1;
     }
     Config cfg{Config::from_file(argv[1], std::cout)};
@@ -24,7 +25,7 @@ int main(int argc, char * argv[]) {
         cap.open(std::get<std::string>(cfg.feed));
     }
     if (!cap.isOpened()) {
-        std::cerr << "error: can't open capture!" << std::endl;
+        std::cout << fmt::error("can't open capture") << std::endl;
         return 1;
     }
     // enter loop
@@ -33,7 +34,7 @@ int main(int argc, char * argv[]) {
         cv::Mat frame;
         cap.read(frame);
         if (frame.empty()) {
-            std::cerr << "error: empty frame!" << std::endl;
+            std::cout << fmt::error("empty frame") << std::endl;
             break;
         }
         // transform frame
