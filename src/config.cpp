@@ -9,6 +9,16 @@ Config Config::from_map(std::map<std::string, std::string> const & map, std::ost
     log << fmt::header("initializing config from map") << std::endl;
     Config cfg{};
     {
+        auto const & it = map.find("feed");
+        if (it != map.end()) {
+            try {
+                cfg.feed = std::stoi(it->second);
+            } catch (...) {
+                cfg.feed = it->second;
+            }
+        }
+    }
+    {
         auto const & it = map.find("downsample_scale");
         if (it != map.end()) {
             cfg.downsample_scale = std::stoi(it->second);
