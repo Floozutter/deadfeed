@@ -40,12 +40,12 @@ int main(int argc, char * argv[]) {
         cap.read(frame);
         if (frame.empty()) {
             std::cout << fmt::error("empty frame") << std::endl;
-            break;
+        } else {
+            // transform frame
+            trans_by_config(frame, cfg);
+            // show frame
+            cv::imshow("deadfeed", frame);
         }
-        // transform frame
-        trans_by_config(frame, cfg);
-        // show frame
-        cv::imshow("deadfeed", frame);
         // handle key events
         int key{cv::waitKey(5)};
         if (key == 27) {
