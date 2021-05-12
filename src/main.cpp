@@ -5,22 +5,29 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
 #include <iostream>
+#include <string>
 #include <variant>
+#include <vector>
+#include <algorithm>
 
 void trans_by_config(cv::Mat & mat, Config const & cfg);
 
 int main(int argc, char * argv[]) {
-    if (fmt::init_ansi()) {
-        std::cout << fmt::success("enabled ANSI") << std::endl;
-    } else {
-        std::cout << fmt::warning("failed to enable ANSI") << std::endl;
+    // handle args
+    std::vector<std::string> const args{argv + 1, argv + argc};
+    if (std::any_of(args.begin(), args.end(), [](auto const & s){ return s == "--ansi"; })) {
+        if (fmt::init_ansi()) {
+            std::cout << fmt::success("enabled ANSI") << std::endl;
+        } else {
+            std::cout << fmt::warning("failed to enable ANSI") << std::endl;
+        }
     }
-    // get config
-    if (argc < 2) {
+    if (args.size() < 1) {  // this ain't good lol
         std::cout << fmt::error("no config filename argument") << std::endl;
         return 1;
     }
-    Config cfg{Config::from_file(argv[1], std::cout)};
+    // get config
+    Config cfg{Config::from_file(args.at(0), std::cout)};
     std::cout << std::endl;
     // open feed
     cv::VideoCapture cap;
