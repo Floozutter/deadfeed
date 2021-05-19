@@ -67,8 +67,8 @@ int main(int argc, char * argv[]) {
 }
 
 void trans_by_config(cv::Mat & mat, Config const & cfg) {
-    resize_to(mat, cfg.width, cfg.height);
-    downsample(mat, cfg.downsample_scale);
-    negate(mat, cfg.negate);
-    quantize(mat, cfg.range_per_channel);
+    trans::resize_to(mat, cfg.width, cfg.height);
+    trans::downsample(mat, cfg.downsample_scale);
+    trans::negate(mat, cfg.negate);
+    trans::quantize(mat, cfg.range_per_channel);
 }
