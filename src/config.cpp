@@ -19,6 +19,18 @@ Config Config::from_map(std::map<std::string, std::string> const & map, std::ost
         }
     }
     {
+        auto const & it = map.find("width");
+        if (it != map.end()) {
+            cfg.width = std::stoi(it->second);
+        }
+    }
+    {
+        auto const & it = map.find("height");
+        if (it != map.end()) {
+            cfg.height = std::stoi(it->second);
+        }
+    }
+    {
         auto const & it = map.find("downsample_scale");
         if (it != map.end()) {
             cfg.downsample_scale = std::stoi(it->second);

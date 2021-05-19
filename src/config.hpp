@@ -9,6 +9,8 @@
 
 struct Config {
     std::variant<int, std::string> feed{0};
+    unsigned int width{0};
+    unsigned int height{0};
     unsigned int downsample_scale{1};
     std::bitset<3> negate{0};
     unsigned int range_per_channel{256};

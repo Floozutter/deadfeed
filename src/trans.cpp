@@ -2,10 +2,15 @@
 #include <opencv2/core.hpp>
 #include <bitset>
 
+void resize_to(cv::Mat & mat, unsigned int width, unsigned int height) {
+    cv::Size const size(width ? width : mat.cols, height ? height : mat.rows);
+    cv::resize(mat, mat, size);
+}
+
 void downsample(cv::Mat & mat, unsigned int scale) {
     if (scale <= 1) { return; }
-    cv::resize(mat, mat, cv::Size(), 1.0/scale, 1.0/scale, cv::INTER_AREA);
-    cv::resize(mat, mat, cv::Size(), scale, scale, cv::INTER_NEAREST);
+    cv::resize(mat, mat, cv::Size{}, 1.0/scale, 1.0/scale, cv::INTER_AREA);
+    cv::resize(mat, mat, cv::Size{}, scale, scale, cv::INTER_NEAREST);
 }
 
 void negate(cv::Mat & mat, std::bitset<3> const & channels) {
