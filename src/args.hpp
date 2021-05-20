@@ -6,6 +6,7 @@
 namespace args {
     class Args {
     public:
+        std::string prog;
         std::string filename;
         bool ansi;
         Args() = delete;

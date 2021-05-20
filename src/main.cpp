@@ -1,3 +1,4 @@
+#include "args.hpp"
 #include "config.hpp"
 #include "trans.hpp"
 #include "fmt.hpp"
@@ -7,27 +8,18 @@
 #include <iostream>
 #include <string>
 #include <variant>
-#include <vector>
 #include <algorithm>
 
+bool validate_args(args::Args const & arguments);
 void trans_by_config(cv::Mat & mat, Config const & cfg);
 
 int main(int argc, char * argv[]) {
     // handle args
-    std::vector<std::string> const args{argv + 1, argv + argc};
-    if (std::any_of(args.begin(), args.end(), [](auto const & s){ return s == "--ansi"; })) {
-        if (fmt::init_ansi()) {
-            std::cout << fmt::success("enabled ANSI") << std::endl;
-        } else {
-            std::cout << fmt::warning("failed to enable ANSI") << std::endl;
-        }
-    }
-    if (args.size() < 1) {  // this ain't good lol
-        std::cout << fmt::error("no config filename argument") << std::endl;
-        return 1;
-    }
+    const args::Args arguments{argc, argv};
+    if (arguments.ansi) { fmt::init_ansi(); }
+    if (!validate_args(arguments)) { return 1; }
     // get config
-    Config cfg{Config::from_file(args.at(0), std::cout)};
+    Config cfg{Config::from_file(arguments.filename, std::cout)};
     std::cout << std::endl;
     // open feed
     cv::VideoCapture cap;
@@ -59,11 +51,23 @@ int main(int argc, char * argv[]) {
             break;
         } else if (key == 'r') {
             // reload config
-            cfg = Config::from_file(argv[1], std::cout);
+            cfg = Config::from_file(arguments.filename, std::cout);
             std::cout << std::endl;
         }
     }
     return 0;
+}
+
+bool validate_args(args::Args const & arguments) {
+    if (arguments.prog.empty()) {
+        std::cout << fmt::error("missing positional arguments") << std::endl;
+        return false;
+    } else if (arguments.filename.empty()) {
+        std::cout << fmt::error("missing <filename> positional argument") << std::endl;
+        return false;
+    } else {
+        return true;
+    }
 }
 
 void trans_by_config(cv::Mat & mat, Config const & cfg) {
