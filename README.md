@@ -15,7 +15,7 @@ cmake --build . --config Release
 
 ## usage
 ```
-deadfeed example.cfg
+deadfeed uwu.cfg
 ```
 
 to quit, press `esc`
