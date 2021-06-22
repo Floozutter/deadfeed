@@ -5,7 +5,7 @@
 
 void trans::resize_to(cv::Mat & mat, unsigned int width, unsigned int height) {
     cv::Size const size(width ? width : mat.cols, height ? height : mat.rows);
-    cv::resize(mat, mat, size);
+    cv::resize(mat, mat, size, 0, 0, cv::INTER_NEAREST);
 }
 
 void trans::downsample(cv::Mat & mat, unsigned int scale) {
