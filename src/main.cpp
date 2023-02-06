@@ -33,6 +33,7 @@ int main(int argc, char * argv[]) {
         return 1;
     }
     // enter loop
+    size_t i{0};
     while (true) {
         // get frame
         cv::Mat frame;
@@ -44,6 +45,8 @@ int main(int argc, char * argv[]) {
             trans_by_config(frame, cfg);
             // show frame
             cv::imshow("deadfeed", frame);
+            //cv::imwrite(std::to_string(i)+".png", frame);
+            ++i;
         }
         // handle key events
         int key{cv::waitKey(5)};
