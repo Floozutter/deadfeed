@@ -25,13 +25,16 @@ void trans::negate(cv::Mat & mat, std::bitset<3> const & channels) {
 }
 
 void trans::quantize(cv::Mat & mat, unsigned int range_per_channel) {
-    if (range_per_channel <= 1) { return; }
-    unsigned int const divisor{256 / range_per_channel};
-    unsigned int const factor{255 / (range_per_channel - 1)};
-    unsigned int const max_index{range_per_channel - 1};
+    // assume colors in [0, 256) per color channel
+    if (range_per_channel <= 1 || range_per_channel > 256) { return; }
     for (auto it = mat.begin<cv::Vec3b>(); it != mat.end<cv::Vec3b>(); ++it) {
-        for (char c = 0; c < 3; ++c) {
-            (*it)[c] = factor * std::min((*it)[c] / divisor, max_index);
+        for (size_t c{0}; c < mat.channels(); ++c) {
+            // scale down color value from [0, 256) to [0, range_per_channel)
+            unsigned int const downscaled{(*it)[c] * range_per_channel / 256};
+            // scake back up from [0, range_per_channel) to [0, 256)
+            unsigned int const quantized{downscaled * 255 / (range_per_channel - 1)};
+            // write to color value
+            (*it)[c] = quantized;
         }
     }
 }
